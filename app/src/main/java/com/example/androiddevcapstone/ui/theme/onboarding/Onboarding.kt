@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -70,13 +71,19 @@ Column {
 
         Row {
 
-            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "First name")}, placeholder = {Text(text="First name")},textStyle= TextStyle(color = Color.Black) )
+            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "First name")}, placeholder = {Text(text="First name")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF333333),
+                unfocusedBorderColor = Color(0xFF71807B)) )
         }
         Row {
-            OutlinedTextField(value = lname, onValueChange = {lname = it},label={ Text(text = "Last name")}, placeholder = {Text(text="Last name")},textStyle= TextStyle(color = Color.Black))
+            OutlinedTextField(value = lname, onValueChange = {lname = it},label={ Text(text = "Last name")}, placeholder = {Text(text="Last name")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF333333),
+                unfocusedBorderColor = Color(0xFF71807B)))
         }
         Row {
-            OutlinedTextField(value = email, onValueChange = {email = it},label={ Text(text = "email")}, placeholder = {Text(text="email")},textStyle= TextStyle(color = Color.Black))
+            OutlinedTextField(value = email, onValueChange = {email = it},label={ Text(text = "email")}, placeholder = {Text(text="email")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF333333),
+                unfocusedBorderColor = Color(0xFF71807B)))
         }
         Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)){
             Button(onClick = { /*TODO*/ },colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20)) {
