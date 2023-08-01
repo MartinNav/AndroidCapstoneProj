@@ -21,10 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,9 +37,15 @@ import com.example.androiddevcapstone.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Onboarding(){
-    var uname =""
-    var lname=""
-    var email=""
+    var uname by remember {
+        mutableStateOf("")
+    }
+    var lname by remember {
+        mutableStateOf("")
+    }
+    var email by remember {
+        mutableStateOf("")
+    }
 Column {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row (modifier = Modifier.fillMaxWidth()){
@@ -62,13 +70,13 @@ Column {
 
         Row {
 
-            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "First name")}, placeholder = {Text(text="First name")}, )
+            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "First name")}, placeholder = {Text(text="First name")},textStyle= TextStyle(color = Color.Black) )
         }
         Row {
-            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "Last name")}, placeholder = {Text(text="Last name")})
+            OutlinedTextField(value = lname, onValueChange = {lname = it},label={ Text(text = "Last name")}, placeholder = {Text(text="Last name")},textStyle= TextStyle(color = Color.Black))
         }
         Row {
-            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "email")}, placeholder = {Text(text="email")})
+            OutlinedTextField(value = email, onValueChange = {email = it},label={ Text(text = "email")}, placeholder = {Text(text="email")},textStyle= TextStyle(color = Color.Black))
         }
         Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)){
             Button(onClick = { /*TODO*/ },colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20)) {
