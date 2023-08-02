@@ -10,3 +10,6 @@ object OnBoardingD:Destinations{
 object HomeD:Destinations{
     override val route = "Home"
 }
+object ProfileD:Destinations{
+    override val route = "Profile"
+}

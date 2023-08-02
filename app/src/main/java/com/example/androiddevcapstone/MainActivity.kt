@@ -59,5 +59,8 @@ fun MyNavigation(){
         composable(HomeD.route){
             HomeScreen()
         }
+        composable(ProfileD.route){
+            Profile()
+        }
     }
 }

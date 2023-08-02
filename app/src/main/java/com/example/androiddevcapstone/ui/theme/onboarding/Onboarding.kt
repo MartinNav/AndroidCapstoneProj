@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.androiddevcapstone.HomeD
+import com.example.androiddevcapstone.ProfileD
 import com.example.androiddevcapstone.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +86,9 @@ Column {
                 unfocusedBorderColor = Color(0xFF71807B)))
         }
         Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)){
-            Button(onClick = { navController.navigate(HomeD.route) },colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20)) {
+            Button(onClick = {
+                navController.navigate(ProfileD.route)
+                             },colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20)) {
                 Text(text = "Register")
             }
         }
