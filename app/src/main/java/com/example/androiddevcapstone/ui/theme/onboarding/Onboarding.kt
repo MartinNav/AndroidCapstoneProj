@@ -1,5 +1,6 @@
 package com.example.androiddevcapstone.ui.theme.onboarding
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -86,8 +88,14 @@ Column {
                 unfocusedBorderColor = Color(0xFF71807B)))
         }
         Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)){
+            val context = LocalContext.current
             Button(onClick = {
-                navController.navigate(ProfileD.route)
+                if (uname==""||lname==""||email==""){
+                    Toast.makeText(context, "Please fill in all info", Toast.LENGTH_SHORT).show()
+                }else {
+                    //TODO:save login state using shared preferences
+                    navController.navigate(ProfileD.route)
+                }
                              },colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20)) {
                 Text(text = "Register")
             }
