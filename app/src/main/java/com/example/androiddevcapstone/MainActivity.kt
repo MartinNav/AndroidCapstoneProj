@@ -1,11 +1,13 @@
 package com.example.androiddevcapstone
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -52,15 +54,25 @@ fun GreetingPreview() {
 fun MyNavigation(){
     val navController = rememberNavController()
     //TODO: is loged in logic
-    NavHost(navController = navController, startDestination =OnBoardingD.route ){
+    val context = LocalContext.current
+    val sharedPref = context.getSharedPreferences("little_lemon_preferences", Context.MODE_PRIVATE)
+    val fname = sharedPref.getString("FNAME","none")
+    var st =OnBoardingD.route
+    //TODO in finished version uncomment
+    if (fname==null||fname==""){
+        st = OnBoardingD.route
+    }else{
+        st = HomeD.route
+    }
+    NavHost(navController = navController, startDestination =st ){
         composable(OnBoardingD.route){
             Onboarding(navController)
         }
         composable(HomeD.route){
-            HomeScreen()
+            HomeScreen(navController)
         }
         composable(ProfileD.route){
-            Profile()
+            Profile(navController)
         }
     }
 }
