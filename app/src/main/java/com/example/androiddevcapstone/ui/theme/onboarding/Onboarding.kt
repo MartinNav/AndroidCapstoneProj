@@ -1,5 +1,6 @@
 package com.example.androiddevcapstone.ui.theme.onboarding
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +37,9 @@ import androidx.navigation.NavHostController
 import com.example.androiddevcapstone.HomeD
 import com.example.androiddevcapstone.ProfileD
 import com.example.androiddevcapstone.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -93,6 +97,20 @@ Column {
                 if (uname==""||lname==""|| !CheckEmailAddress(email)){
                     Toast.makeText(context, "Please fill in correct info", Toast.LENGTH_SHORT).show()
                 }else {
+                   /* coroutineScope.launch{
+                        withContext(Dispatchers.IO){
+                            var lc = this
+                        }
+                    }*/
+                    var sharedprefs  =context.getSharedPreferences("little_lemon_preferences",Context.MODE_PRIVATE)
+                    with (sharedprefs.edit()){
+                        putString("FNAME",uname)
+                        putString("LNAME",lname)
+                        putString("MAIL",email)
+                        apply()
+
+                    }
+
                     //TODO:save login state using shared preferences
                     navController.navigate(ProfileD.route)
                 }
