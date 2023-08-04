@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
 import com.example.androiddevcapstone.ui.theme.AndroidDevCapstoneTheme
 import com.example.androiddevcapstone.ui.theme.onboarding.Onboarding
 import io.ktor.client.HttpClient
@@ -33,6 +34,10 @@ class MainActivity : ComponentActivity() {
             }
         }
         var httpClient = HttpClient(Android)
+        var db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,"littlelemon-db"
+        ).build()
 
     }
 }
