@@ -14,6 +14,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevcapstone.ui.theme.AndroidDevCapstoneTheme
 import com.example.androiddevcapstone.ui.theme.onboarding.Onboarding
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +32,8 @@ class MainActivity : ComponentActivity() {
                 }*/
             }
         }
+        var httpClient = HttpClient(Android)
+
     }
 }
 

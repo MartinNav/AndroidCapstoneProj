@@ -3,6 +3,7 @@ package com.example.androiddevcapstone
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,8 @@ fun Profile(navController: NavHostController){
                 Image(painter = painterResource(id = R.drawable.logo), contentDescription = "Little lemon logo", modifier = Modifier
                     .fillMaxWidth()
                     .height(80.dp)
-                    .padding(0.dp, 10.dp))
+                    .padding(0.dp, 10.dp)
+                    .clickable { navController.navigate(HomeD.route) })
             }
             Image(painter = painterResource(id = R.drawable.profile), contentDescription = "Profile picture", modifier = Modifier
                 .fillMaxWidth()
