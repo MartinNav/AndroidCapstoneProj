@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.androiddevcapstone.ui.theme.onboarding.CheckEmailAddress
+
 
 @Composable
 fun Profile(navController: NavHostController){
@@ -41,59 +46,76 @@ fun Profile(navController: NavHostController){
                     .padding(0.dp, 10.dp)
                     .clickable { navController.navigate(HomeD.route) })
             }
-            Image(painter = painterResource(id = R.drawable.profile), contentDescription = "Profile picture", modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp)
-            .padding(0.dp,50.dp))
-            Text(text = "Profile Information", fontWeight = FontWeight.Bold, fontSize = 35.sp)
-            Row {
-                Text(text = "First name:", fontWeight = FontWeight.Bold)
-                Text(text = UnNullString(fname))
-            }
-            Row {
-                Text(text = "Last name:", fontWeight = FontWeight.Bold)
-                Text(text = UnNullString(lname))
-            }
-            Row {
-                Text(text = "Email:", fontWeight = FontWeight.Bold)
-                Text(text = UnNullString(email))
-            }
+            Card (colors = CardDefaults.cardColors(containerColor = Color.White), elevation = CardDefaults.cardElevation(3.dp,3.dp,3.dp,3.dp,3.dp,3.dp),
+                modifier = Modifier.padding(5.dp,1.dp)) {
 
 
-            Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)) {
-                val context = LocalContext.current
-                Button(
-                    onClick = {
-                        with(sharedPref.edit()) {
-                            putString("FNAME", "")
-                            putString("LNAME", "")
-                            putString("MAIL", "")
-                            apply()
+                Image(
+                    painter = painterResource(id = R.drawable.profile),
+                    contentDescription = "Profile picture",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .padding(0.dp, 50.dp)
+                )
+                Column(modifier = Modifier.padding(10.dp, 0.dp)) {
 
-                        }
-                        navController.navigate(OnBoardingD.route)
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(20)
-                ) {
-                    Text(text = "Log Out")
 
+                    Text(
+                        text = "Profile Information",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 35.sp
+                    )
+                    Row {
+                        Text(text = "First name:", fontWeight = FontWeight.Bold)
+                        Text(text = UnNullString(fname))
+                    }
+                    Row {
+                        Text(text = "Last name:", fontWeight = FontWeight.Bold)
+                        Text(text = UnNullString(lname))
+                    }
+                    Row(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 15.dp)) {
+                        Text(text = "Email:", fontWeight = FontWeight.Bold)
+                        Text(text = UnNullString(email))
+                    }
                 }
-            }
 
-            Row (modifier = Modifier.padding(15.dp,30.dp,15.dp,0.dp)) {
 
-                Button(
-                    onClick = {
-                        navController.navigate(HomeD.route)
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(20)
-                ) {
-                    Text(text = "Go Home")
+                Row(modifier = Modifier.padding(15.dp, 40.dp, 15.dp, 0.dp)) {
+                    val context = LocalContext.current
+                    Button(
+                        onClick = {
+                            with(sharedPref.edit()) {
+                                putString("FNAME", "")
+                                putString("LNAME", "")
+                                putString("MAIL", "")
+                                apply()
 
+                            }
+                            navController.navigate(OnBoardingD.route)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20)
+                    ) {
+                        Text(text = "Log Out")
+
+                    }
+                }
+
+                Row(modifier = Modifier.padding(15.dp, 20.dp, 15.dp, 25.dp)) {
+
+                    Button(
+                        onClick = {
+                            navController.navigate(HomeD.route)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20)
+                    ) {
+                        Text(text = "Go Home")
+
+                    }
                 }
             }
         }

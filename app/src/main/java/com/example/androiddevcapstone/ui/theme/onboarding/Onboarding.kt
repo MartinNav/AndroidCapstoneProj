@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,9 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -68,54 +72,109 @@ Column {
             .wrapContentSize(Alignment.Center)){
             Text(text = "Let's get to know you",textAlign = TextAlign.Center, fontSize = 35.sp, color = Color(0xFFFFFFFF))
         }
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .height(110.dp)){
-            Text(text = "Personal information", modifier = Modifier.padding(5.dp,10.dp), fontWeight = FontWeight.Bold, fontSize = 25.sp)
+        Card (colors = CardDefaults.cardColors(containerColor = Color.White),
+            modifier = Modifier.padding(8.dp,8.dp)
+                .fillMaxSize(),
+           elevation = CardDefaults.cardElevation(3.dp,3.dp,3.dp,3.dp,3.dp,3.dp)
+        ){
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(110.dp)
+            ) {
+                Text(
+                    text = "Personal information",
+                    modifier = Modifier.padding(5.dp, 10.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 25.sp
+                )
 
-        }
+            }
 
-        Row {
+            Row {
 
-            OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "First name")}, placeholder = {Text(text="First name")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF333333),
-                unfocusedBorderColor = Color(0xFF71807B)), modifier = Modifier.padding(5.dp,0.dp).fillMaxWidth() )
-        }
-        Row {
-            OutlinedTextField(value = lname, onValueChange = {lname = it},label={ Text(text = "Last name")}, placeholder = {Text(text="Last name")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF333333),
-                unfocusedBorderColor = Color(0xFF71807B)), modifier = Modifier.padding(5.dp,0.dp).fillMaxWidth())
-        }
-        Row {
-            OutlinedTextField(value = email, onValueChange = {email = it},label={ Text(text = "email")}, placeholder = {Text(text="email")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF333333),
-                unfocusedBorderColor = Color(0xFF71807B)), modifier = Modifier.padding(5.dp,0.dp).fillMaxWidth())
-        }
-        Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)){
-            val context = LocalContext.current
-            Button(onClick = {
-                if (uname==""||lname==""|| !CheckEmailAddress(email)){
-                    Toast.makeText(context, "Please fill in correct info", Toast.LENGTH_SHORT).show()
-                }else {
-                    /*coroutineScope.launch{
+                OutlinedTextField(value = uname,
+                    onValueChange = { uname = it },
+                    label = { Text(text = "First name") },
+                    placeholder = { Text(text = "First name") },
+                    textStyle = TextStyle(color = Color.Black),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color(0xFF333333),
+                        unfocusedBorderColor = Color(0xFF71807B)
+                    ),
+                    modifier = Modifier
+                        .padding(5.dp, 0.dp)
+                        .fillMaxWidth()
+                )
+            }
+            Row {
+                OutlinedTextField(value = lname,
+                    onValueChange = { lname = it },
+                    label = { Text(text = "Last name") },
+                    placeholder = { Text(text = "Last name") },
+                    textStyle = TextStyle(color = Color.Black),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color(0xFF333333),
+                        unfocusedBorderColor = Color(0xFF71807B)
+                    ),
+                    modifier = Modifier
+                        .padding(5.dp, 0.dp)
+                        .fillMaxWidth()
+                )
+            }
+            Row {
+                OutlinedTextField(value = email,
+                    onValueChange = { email = it },
+                    label = { Text(text = "email") },
+                    placeholder = { Text(text = "email") },
+                    textStyle = TextStyle(color = Color.Black),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color(0xFF333333),
+                        unfocusedBorderColor = Color(0xFF71807B)
+                    ),
+                    modifier = Modifier
+                        .padding(5.dp, 0.dp)
+                        .fillMaxWidth()
+                )
+            }
+            Row(modifier = Modifier.padding(15.dp, 80.dp, 15.dp, 0.dp)) {
+                val context = LocalContext.current
+                Button(
+                    onClick = {
+                        if (uname == "" || lname == "" || !CheckEmailAddress(email)) {
+                            Toast.makeText(
+                                context,
+                                "Please fill in correct info",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            /*coroutineScope.launch{
                         withContext(Dispatchers.IO){
                             var lc = this
                         }
                     }*/
-                    var sharedprefs  =context.getSharedPreferences("little_lemon_preferences",Context.MODE_PRIVATE)
-                    with (sharedprefs.edit()){
-                        putString("FNAME",uname)
-                        putString("LNAME",lname)
-                        putString("MAIL",email)
-                        apply()
+                            var sharedprefs = context.getSharedPreferences(
+                                "little_lemon_preferences",
+                                Context.MODE_PRIVATE
+                            )
+                            with(sharedprefs.edit()) {
+                                putString("FNAME", uname)
+                                putString("LNAME", lname)
+                                putString("MAIL", email)
+                                apply()
 
-                    }
+                            }
 
-                    //TODO:save login state using shared preferences
-                    navController.navigate(ProfileD.route)
+                            //TODO:save login state using shared preferences
+                            navController.navigate(ProfileD.route)
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(20)
+                ) {
+                    Text(text = "Register")
                 }
-                             },colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20)) {
-                Text(text = "Register")
             }
         }
     }
@@ -127,9 +186,3 @@ fun CheckEmailAddress(mail:String) : Boolean{
     val reg = Regex("(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
     return reg.matches(mail)
 }
-/*
-@Preview
-@Composable
-fun OnboardingPreview(){
-    Onboarding(navController)
-}*/
