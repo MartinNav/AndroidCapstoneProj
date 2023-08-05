@@ -8,49 +8,117 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
     fun HomeScreen(navController: NavHostController){
+    var searchTerm by remember{
+        mutableStateOf("")
+    }
         Column {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row (modifier = Modifier.fillMaxWidth()){
                     Image(painter = painterResource(id = R.drawable.logo), contentDescription = "Little lemon logo", modifier = Modifier
-                        .fillMaxWidth()
-                        .height(80.dp)
-                        .padding(0.dp, 10.dp))
+                        //.fillMaxWidth()
+                        .fillMaxWidth(0.85f)
+                        .height(70.dp)
+                        .padding(0.dp, 10.dp, 0.dp, 0.dp))
+
+                        Image(
+                            painter = painterResource(id = R.drawable.profile),
+                            contentDescription = "Profile picture",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                //.fillMaxWidth()
+                                //.size(100.dp)
+                                .padding(0.dp, 15.dp, 0.dp, 0.dp)
+                                .width(50.dp)
+                                .height(50.dp)
+                                .clip(CircleShape)
+
+                                //.align(Alignment.TopEnd)
+                                //.padding(0.dp, 50.dp)
+                                .clickable { navController.navigate(ProfileD.route) },
+                        )
+
+
                 }
 
             }
-            Row (modifier = Modifier.fillMaxWidth()){
-                Column (modifier = Modifier.fillMaxWidth()
-                    .padding(300.dp,2.dp,10.dp,2.dp), horizontalAlignment = Alignment.End){
 
+            Card(elevation = CardDefaults.cardElevation(defaultElevation = 5.dp), modifier = Modifier.padding(10.dp), colors = CardDefaults.cardColors(containerColor = Color(0xFF0495E57))) {
+                Row (modifier = Modifier.padding(10.dp,0.dp,0.dp,0.dp)){
+                Column {
+                    Row {
+                       // Text(text = "Restaurant:", fontWeight = FontWeight.Bold)
 
-                    Image(
-                        painter = painterResource(id = R.drawable.profile),
-                        contentDescription = "Profile picture",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .size(100.dp)
-                            .clip(CircleShape)
-                            //.align(Alignment.TopEnd)
-                            //.padding(0.dp, 50.dp)
-                            .clickable { navController.navigate(ProfileD.route) },
-                    )
+                        Text(text = "Little Lemon", color = Color(0xFFF4CE14), fontSize = 30.sp)
+                    }
+                    Row {
+                        //Text(text = "City:", fontWeight = FontWeight.Bold)
+
+                        Text(text = "Chicago",color = Color(0xFFFFFFFF), fontSize = 20.sp)
+                    }
+                    /*Row {
+
+                        Text(text = "Description:", fontWeight = FontWeight.Bold)
+                    }*/
+                    Row (modifier = Modifier.width(200.dp)){
+
+                        Text(text = "We are a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist", color= Color(0xFFFAFAFA), fontSize = 15.sp)
+
+                    }
                 }
+                    Image(painter = painterResource(id = R.drawable.hero_image), contentDescription = "Hero image", modifier = Modifier
+                        .height(200.dp)
+                        .fillMaxWidth()
+                        .padding(50.dp, 0.dp, 0.dp, 0.dp))
+
+                }
+                Row(modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth()) {
+                    TextField(value = searchTerm, onValueChange = {searchTerm =it},modifier = Modifier.fillMaxWidth(), placeholder = { Row{
+                        Icon(Icons.Rounded.Search, contentDescription = "Search field")
+                        Text(
+                        text = "Enter search phrase"
+                    )}},colors = TextFieldDefaults.textFieldColors(containerColor = Color(0xFFFAFAFA), textColor = Color(0xFF333333)))
+                }
+                /*Row (modifier = Modifier.padding(10.dp,1.dp,10.dp,10.dp)){
+                    Text(text = "Description:", fontWeight = FontWeight.Bold)
+
+                    Text(text = "We are a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist")
+                }*/
             }
         }
     }

@@ -10,16 +10,14 @@ import io.ktor.http.HttpMethod
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-class MenuNetworkdata{
-    suspend fun getMenuData(client:HttpClient):NetworkItems{
+
+    suspend public fun GetMenuData(client:HttpClient):NetworkItems{
         val response:HttpResponse = client.request("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")
         {
             method = HttpMethod.Get
         }
         return response.body()
     }
-
-}
 @Serializable
 data class MenuItemNetwork(
     @SerialName("id")
