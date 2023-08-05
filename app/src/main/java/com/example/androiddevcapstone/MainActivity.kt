@@ -92,10 +92,12 @@ class MainActivity : ComponentActivity() {
         val fname = sharedPref.getString("FNAME","none")
         var st =OnBoardingD.route
         //TODO in finished version uncomment
+        var menuList = emptyList<Dish>()
     lifecycleScope.launch (Dispatchers.IO){
         if (db.dishDao().getAll().isEmpty()){
             SaveNetworkItemsToDB(GetMenuData(httpClient), db)
         }
+        menuList = db.dishDao().getAll()
     }
 
 
@@ -111,7 +113,7 @@ class MainActivity : ComponentActivity() {
                 Onboarding(navController)
             }
             composable(HomeD.route){
-                HomeScreen(navController)
+                HomeScreen(navController,menuList)
             }
             composable(ProfileD.route){
                 Profile(navController)

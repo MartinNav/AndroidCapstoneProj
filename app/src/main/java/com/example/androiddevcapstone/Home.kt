@@ -9,11 +9,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
@@ -37,13 +41,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-    fun HomeScreen(navController: NavHostController){
+    fun HomeScreen(navController: NavHostController, menuList: List<Dish>){
     var searchTerm by remember{
         mutableStateOf("")
+    }
+    var filteredList by remember{
+        mutableStateOf(menuList)
     }
         Column {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -114,11 +122,82 @@ import androidx.navigation.NavHostController
                         text = "Enter search phrase"
                     )}},colors = TextFieldDefaults.textFieldColors(containerColor = Color(0xFFFAFAFA), textColor = Color(0xFF333333)))
                 }
+
                 /*Row (modifier = Modifier.padding(10.dp,1.dp,10.dp,10.dp)){
                     Text(text = "Description:", fontWeight = FontWeight.Bold)
 
                     Text(text = "We are a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist")
                 }*/
             }
+            Row(modifier = Modifier.padding(15.dp,0.dp)) {
+                Text(text = "Order for your delivery", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+            }
+            Row (modifier = Modifier.fillMaxWidth()){
+                LazyRow{
+                    item {
+                        Button(onClick = {
+                            filteredList =menuList
+                        }, modifier = Modifier.padding(10.dp,0.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFAFAFAF), contentColor = Color(0xFF333333)) ){
+                            Text(text = "All")
+                        }
+                    }
+                    item {
+                        Button(onClick = {
+                                         filteredList =menuList.filter { it.category=="starters" }
+                        }, modifier = Modifier.padding(10.dp,0.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFAFAFAF), contentColor = Color(0xFF333333)) ){
+                            Text(text = "Starters")
+                        }
+                    }
+                    item {
+                        Button(onClick = { filteredList =menuList.filter { it.category=="mains" } }, modifier = Modifier.padding(10.dp,0.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFAFAFAF), contentColor = Color(0xFF333333)) ){
+                            Text(text = "Mains")
+                        }
+                    }
+                    item {
+                        Button(onClick = { filteredList =menuList.filter { it.category=="desserts" } }, modifier = Modifier.padding(10.dp,0.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFAFAFAF), contentColor = Color(0xFF333333))) {
+                            Text(text = "Desserts")
+                        }
+                    }
+                    item {
+                        Button(onClick = { filteredList =menuList.filter { it.category=="drinks" } }, modifier = Modifier.padding(10.dp,0.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFAFAFAF), contentColor = Color(0xFF333333))) {
+                            Text(text = "Drinks")
+                        }
+                    }
+                }
+            }
+            LazyColumn(modifier = Modifier.fillMaxWidth()){
+                items(items=filteredList,
+                    itemContent={
+                        it ->
+                        HomeMenuItem(item = it)
+                    }
+                    )
+            }
         }
     }
+
+
+@Composable
+fun HomeMenuItem(item:Dish){
+    Card (elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),modifier = Modifier
+        .fillMaxWidth()
+        .padding(0.dp, 2.dp)
+        ,colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF))
+        , shape = RoundedCornerShape(3.dp)
+    ){
+
+
+        Row (modifier = Modifier.padding(5.dp,5.dp)){
+            Column(modifier = Modifier.fillMaxWidth(0.7f)) {
+                Text(text = item.title, fontWeight = FontWeight.Bold)
+                Text(text = item.description)
+                Text(text = "\$${item.price}.99")
+            }
+            AsyncImage(
+                model = item.image, contentDescription = item.title, modifier = Modifier
+                    .width(100.dp)
+                    .fillMaxWidth()
+            )
+        }
+    }
+}
