@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -90,7 +91,7 @@ import coil.compose.AsyncImage
                     Row {
                        // Text(text = "Restaurant:", fontWeight = FontWeight.Bold)
 
-                        Text(text = "Little Lemon", color = Color(0xFFF4CE14), fontSize = 30.sp)
+                        Text(text = "Little Lemon", color = Color(0xFFF4CE14), fontSize = 38.sp)
                     }
                     Row {
                         //Text(text = "City:", fontWeight = FontWeight.Bold)
