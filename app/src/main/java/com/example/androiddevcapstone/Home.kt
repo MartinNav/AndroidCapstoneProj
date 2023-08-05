@@ -116,7 +116,12 @@ import coil.compose.AsyncImage
                 Row(modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth()) {
-                    TextField(value = searchTerm, onValueChange = {searchTerm =it},modifier = Modifier.fillMaxWidth(), placeholder = { Row{
+                    TextField(value = searchTerm, onValueChange = {searchTerm =it
+                                                                  filteredList = menuList.filter {
+                                                                      di->
+                                                                      di.title.contains(searchTerm,true)
+                                                                  }
+                                                                  filteredList.sortedBy { it.title }},modifier = Modifier.fillMaxWidth(), placeholder = { Row{
                         Icon(Icons.Rounded.Search, contentDescription = "Search field")
                         Text(
                         text = "Enter search phrase"
