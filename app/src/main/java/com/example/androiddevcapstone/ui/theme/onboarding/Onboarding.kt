@@ -66,12 +66,12 @@ Column {
             .height(110.dp)
             .background(Color(0xFF495E57))
             .wrapContentSize(Alignment.Center)){
-            Text(text = "Let's get to know you",textAlign = TextAlign.Center, fontSize = 30.sp, color = Color(0xFFFFFFFF))
+            Text(text = "Let's get to know you",textAlign = TextAlign.Center, fontSize = 35.sp, color = Color(0xFFFFFFFF))
         }
         Row (modifier = Modifier
             .fillMaxWidth()
             .height(110.dp)){
-            Text(text = "Personal information", modifier = Modifier.padding(5.dp,30.dp), fontWeight = FontWeight.Bold)
+            Text(text = "Personal information", modifier = Modifier.padding(5.dp,10.dp), fontWeight = FontWeight.Bold, fontSize = 25.sp)
 
         }
 
@@ -79,17 +79,17 @@ Column {
 
             OutlinedTextField(value = uname, onValueChange = {uname = it},label={ Text(text = "First name")}, placeholder = {Text(text="First name")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color(0xFF333333),
-                unfocusedBorderColor = Color(0xFF71807B)) )
+                unfocusedBorderColor = Color(0xFF71807B)), modifier = Modifier.padding(5.dp,0.dp).fillMaxWidth() )
         }
         Row {
             OutlinedTextField(value = lname, onValueChange = {lname = it},label={ Text(text = "Last name")}, placeholder = {Text(text="Last name")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color(0xFF333333),
-                unfocusedBorderColor = Color(0xFF71807B)))
+                unfocusedBorderColor = Color(0xFF71807B)), modifier = Modifier.padding(5.dp,0.dp).fillMaxWidth())
         }
         Row {
             OutlinedTextField(value = email, onValueChange = {email = it},label={ Text(text = "email")}, placeholder = {Text(text="email")},textStyle= TextStyle(color = Color.Black),colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color(0xFF333333),
-                unfocusedBorderColor = Color(0xFF71807B)))
+                unfocusedBorderColor = Color(0xFF71807B)), modifier = Modifier.padding(5.dp,0.dp).fillMaxWidth())
         }
         Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)){
             val context = LocalContext.current

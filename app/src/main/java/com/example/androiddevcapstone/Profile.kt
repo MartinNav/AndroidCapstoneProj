@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.androiddevcapstone.ui.theme.onboarding.CheckEmailAddress
 
@@ -43,17 +45,17 @@ fun Profile(navController: NavHostController){
                 .fillMaxWidth()
                 .height(250.dp)
             .padding(0.dp,50.dp))
-            Text(text = "Profile Information")
+            Text(text = "Profile Information", fontWeight = FontWeight.Bold, fontSize = 35.sp)
             Row {
-                Text(text = "First name:")
+                Text(text = "First name:", fontWeight = FontWeight.Bold)
                 Text(text = UnNullString(fname))
             }
             Row {
-                Text(text = "Last name:")
+                Text(text = "Last name:", fontWeight = FontWeight.Bold)
                 Text(text = UnNullString(lname))
             }
             Row {
-                Text(text = "Email:")
+                Text(text = "Email:", fontWeight = FontWeight.Bold)
                 Text(text = UnNullString(email))
             }
 
@@ -80,7 +82,7 @@ fun Profile(navController: NavHostController){
                 }
             }
 
-            Row (modifier = Modifier.padding(15.dp,80.dp,15.dp,0.dp)) {
+            Row (modifier = Modifier.padding(15.dp,30.dp,15.dp,0.dp)) {
 
                 Button(
                     onClick = {
